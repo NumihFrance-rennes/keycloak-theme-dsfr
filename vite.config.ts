@@ -9,6 +9,12 @@ export default defineConfig({
         keycloakify({
             themeName: "DSFR",
             accountThemeImplementation: "Multi-Page",
+            // Un seul jar, nommé de façon déterministe, ciblant Keycloak 26.2+ (keycloak-csm = 26.6.3).
+            // L'URL de release est ainsi stable pour le `curl` du Dockerfile keycloak-csm.
+            keycloakVersionTargets: {
+                "22-to-25": false,
+                "all-other-versions": "keycloak-theme-dsfr.jar"
+            },
             environmentVariables: [
                 { name: "DSFR_THEME_HOME_URL", default: "" },
                 { name: "DSFR_THEME_SERVICE_TITLE", default: "" },
