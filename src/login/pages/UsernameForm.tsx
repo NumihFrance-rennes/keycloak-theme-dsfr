@@ -65,16 +65,6 @@ export default function UsernameForm(props: PageProps<Extract<KcContext, { pageI
                                         <h2 className={fr.cx("fr-h5")}>{msg("login-with-proconnect")}</h2>
                                         <p className={fr.cx("fr-text--sm")}>{msg("proconnect-description")}</p>
                                         <ProConnectButton style={{ textAlign: "center" }} url={p.loginUrl} />
-                                        <p>
-                                            <a
-                                                className={fr.cx("fr-link")}
-                                                href="https://www.proconnect.gouv.fr/"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                            >
-                                                {msg("what-is-proconnect")}
-                                            </a>
-                                        </p>
                                     </div>
                                 );
                             }
