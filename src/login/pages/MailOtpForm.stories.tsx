@@ -21,8 +21,24 @@ export const WithInvalidCode: Story = {
         <KcPageStory
             kcContext={{
                 messagesPerField: {
-                    existsError: (fieldName: string, ...otherFieldNames: string[]) =>
-                        [fieldName, ...otherFieldNames].includes("otp_code"),
+                    existsError: (fieldName: string, ...otherFieldNames: string[]) => [fieldName, ...otherFieldNames].includes("otp_code"),
+                    get: (fieldName: string) => (fieldName === "otp_code" ? "Le code saisi est invalide." : "")
+                }
+            }}
+        />
+    )
+};
+
+export const WithInvalidCodeAndAttemptedUsername: Story = {
+    render: () => (
+        <KcPageStory
+            kcContext={{
+                auth: {
+                    attemptedUsername: "max.mustermann@mail.com",
+                    showUsername: true
+                },
+                messagesPerField: {
+                    existsError: (fieldName: string, ...otherFieldNames: string[]) => [fieldName, ...otherFieldNames].includes("otp_code"),
                     get: (fieldName: string) => (fieldName === "otp_code" ? "Le code saisi est invalide." : "")
                 }
             }}

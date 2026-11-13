@@ -5,20 +5,12 @@ import type { PageProps } from "keycloakify/login/pages/PageProps";
 import { useState } from "react";
 import type { KcContext } from "../KcContext";
 import type { I18n } from "../i18n";
+import { maskEmail } from "../shared/maskEmail";
 
 // Durée de validité affichée à l'utilisateur (en minutes).
 // ⚠️ L'extension `mail-otp-authenticator` utilise CODE_VALIDITY_DURATION = 300s (5 min)
 // dans MailCodeService.java. Aligne cette constante (ou l'extension) pour rester cohérent.
 const CODE_VALIDITY_MINUTES = 15;
-
-/** Masque une adresse email : "bob@gmail.com" -> "b***@gmail.com". */
-function maskEmail(email: string | undefined): string | undefined {
-    if (email === undefined || !email.includes("@")) {
-        return undefined;
-    }
-    const [local, domain] = email.split("@");
-    return `${local.slice(0, 1)}***@${domain}`;
-}
 
 /**
  * Saisie du code OTP reçu par email.
@@ -37,8 +29,7 @@ export default function MailOtpForm(props: PageProps<Extract<KcContext, { pageId
 
     // `auth.*` est présent dans le data_model freemarker (sérialisé par keycloakify)
     // mais réduit dans le type `auth` commun des pages custom.
-    const { selectedCredential, attemptedUsername } =
-        (auth as { selectedCredential?: string; attemptedUsername?: string } | undefined) ?? {};
+    const { selectedCredential, attemptedUsername } = (auth as { selectedCredential?: string; attemptedUsername?: string } | undefined) ?? {};
 
     const { msg, msgStr } = i18n;
     const [isLoginButtonDisabled, setIsLoginButtonDisabled] = useState(false);
